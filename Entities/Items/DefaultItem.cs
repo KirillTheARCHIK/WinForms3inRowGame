@@ -21,7 +21,7 @@ namespace _3inRowGame.Entities.Items
         }
         protected override string GetImagePath()
         {
-            
+            throw new Exception();
         }
     }
 }
