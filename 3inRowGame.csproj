@@ -154,11 +154,21 @@
     <Compile Include="Forms\PlayForm.Designer.cs">
       <DependentUpon>PlayForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\StartGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StartGame.designer.cs">
+      <DependentUpon>StartGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\UIManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Constants.cs" />
     <EmbeddedResource Include="Forms\PlayForm.resx">
       <DependentUpon>PlayForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StartGame.resx">
+      <DependentUpon>StartGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
