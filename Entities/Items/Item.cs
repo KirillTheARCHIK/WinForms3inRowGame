@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace _3inRowGame.Entities
 {
-    abstract class Item
+    public abstract class Item
     {
         PictureBox pictureBox;
         public Item()
