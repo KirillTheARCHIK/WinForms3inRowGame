@@ -22,14 +22,14 @@ namespace _3inRowGame
             ConfigureServices(services);
             using (ServiceProvider serviceProvider = services.BuildServiceProvider())
             {
-                var mainForm = serviceProvider.GetRequiredService<MainForm>();
+                var mainForm = serviceProvider.GetRequiredService<StartGame>();
                 Application.Run(mainForm);
             }
         }
 
         private static void ConfigureServices(ServiceCollection services)
         {
-            services.AddSingleton<MainForm>()
+            services.AddSingleton<StartGame>()
                     .AddLogging(configure => configure.AddConsole());
         }
     }
