@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace _3inRowGame.Entities
 {
-    abstract class Item
+    public abstract class Item
     {
-        PictureBox pictureBox;
+        public PictureBox pictureBox;
         public Item()
         {
             pictureBox = new PictureBox();
             pictureBox.Size = new Size(Constants.itemSize, Constants.itemSize);
-            pictureBox.Image = new Bitmap(ResolveImagePath(GetImagePath()));
+            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
         }
 
         string ResolveImagePath(string relativePath)
@@ -26,5 +26,10 @@ namespace _3inRowGame.Entities
         }
 
         protected abstract string GetImagePath();
+
+        public void Init()
+        {
+            pictureBox.Image = new Bitmap(ResolveImagePath(GetImagePath()));
+        }
     }
 }

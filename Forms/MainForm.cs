@@ -16,6 +16,7 @@ namespace _3inRowGame
         public MainForm()
         {
             InitializeComponent();
+            new PlayForm("").ShowDialog();
         }
     }
 }

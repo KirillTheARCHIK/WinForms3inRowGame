@@ -37,6 +37,7 @@ namespace _3inRowGame
             // 
             // playFieldPanel
             // 
+            this.playFieldPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.playFieldPanel.Location = new System.Drawing.Point(150, 0);
             this.playFieldPanel.Margin = new System.Windows.Forms.Padding(0);
             this.playFieldPanel.Name = "playFieldPanel";
