@@ -8,6 +8,6 @@ namespace _3inRowGame.Utils
 {
     class Constants
     {
-        public static int itemSize = 16;
+        public static int itemSize = 64;
     }
 }
