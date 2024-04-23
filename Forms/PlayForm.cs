@@ -13,6 +13,13 @@ using System.Windows.Forms;
 
 namespace _3inRowGame
 {
+    enum Direction
+    {
+        Up,
+        Right,
+        Down,
+        Left
+    }
     public partial class PlayForm : Form
     {
         Random rand = new Random();
@@ -74,6 +81,10 @@ namespace _3inRowGame
                 {
                     continue;
                 }
+                if (CollapseItems())
+                {
+                    continue;
+                }
                 break;
             }
         }
@@ -108,7 +119,7 @@ namespace _3inRowGame
 
         public bool SpawnTopRow()
         {
-            if (itemMatrix.All(col=>col.Last()!=null))
+            if (itemMatrix.All(col => col.Last() != null))
             {
                 return false;
             }
@@ -131,6 +142,66 @@ namespace _3inRowGame
             {
                 itemMatrix[point.X][point.Y] = item;
                 playFieldPanel.Controls.Add(item.pictureBox);
+            }
+        }
+
+        public bool CollapseItems()
+        {
+            var findedItems = FindItemsRow();
+            if (findedItems!=null)
+            {
+                for (int i = 0; i < findedItems.Count; i++)
+                {
+                    findedItems[i] = null;
+                }
+            }
+            return false;
+        }
+
+        public List<DefaultItem> FindItemsRow()
+        {
+            for (int startCol = 0; startCol < itemMatrix.Length; startCol++)
+            {
+                for (int startRow = 0; startRow < itemMatrix.Length; startRow++)
+                {
+                    var startItem = itemMatrix[startCol][startRow];
+                    if (startItem is DefaultItem)
+                    {
+                        var startItemType = (startItem as DefaultItem).type;
+
+                    }
+                }
+            }
+        } 
+
+        public List<DefaultItem> PickItemsRow(DefaultItemType type, int startCol, int startRow, Direction direction)
+        {
+            var itemsRow = new List<DefaultItem>() { itemMatrix[startCol][startRow] as DefaultItem };
+            switch (direction)
+            {
+                case Direction.Up:
+                    {
+                        if (itemMatrix[startCol].Length - startRow <= 3)
+                        {
+                            return null;
+                        }
+                        for (int row = startRow; row < itemMatrix[startCol].Length; row++)
+                        {
+
+                        }
+                    }
+                case Direction.Right:
+                    {
+
+                    }
+                case Direction.Down:
+                    {
+
+                    }
+                case Direction.Left:
+                    {
+
+                    }
             }
         }
     }

@@ -15,7 +15,7 @@ namespace _3inRowGame.Entities.Items
     }
     class DefaultItem : Item
     {
-        DefaultItemType type;
+       public DefaultItemType type;
         public DefaultItem(DefaultItemType type) : base()
         {
             this.type = type;
