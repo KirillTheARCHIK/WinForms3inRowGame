@@ -25,13 +25,13 @@ namespace _3inRowGame.Entities.Items
             switch (type)
             {
                 case DefaultItemType.anchor:
-                    return "armor_soldier_ninja_avatar_wheel_war_warrior_helm_game_icon_262426.png";
+                    return "ItemAnchor.png";
                 case DefaultItemType.treasure:
-                    return "crown_game_sports_console_controller_sport_video_play_gaming_icon_262443.png";
+                    return "ItemTreasure.png";
                 case DefaultItemType.map:
-                    return "treasure_box_secret_prize_award_rich_coin_gold_game_icon_262449.png";
+                    return "ItemMap.png";
                 case DefaultItemType.skull:
-                    return "video_game_console_controller_sport_joystick_shamrock_treasure_icon_262438.png";
+                    return "ItemSkull.png";
                 default:
                     return "";
             }

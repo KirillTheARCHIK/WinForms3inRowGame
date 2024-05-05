@@ -13,6 +13,8 @@ namespace _3inRowGame.Entities
     public abstract class Item
     {
         public PictureBox pictureBox;
+        public int row;
+        public int col;
         public Item()
         {
             pictureBox = new PictureBox();

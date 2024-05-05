@@ -165,10 +165,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\armor_soldier_ninja_avatar_wheel_war_warrior_helm_game_icon_262426.png" />
-    <Content Include="Images\crown_game_sports_console_controller_sport_video_play_gaming_icon_262443.png" />
-    <Content Include="Images\treasure_box_secret_prize_award_rich_coin_gold_game_icon_262449.png" />
-    <Content Include="Images\video_game_console_controller_sport_joystick_shamrock_treasure_icon_262438.png" />
+    <Content Include="Images\ItemAnchor.png" />
+    <Content Include="Images\ItemMap.png" />
+    <Content Include="Images\ItemSkull.png" />
+    <Content Include="Images\ItemTreasure.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
