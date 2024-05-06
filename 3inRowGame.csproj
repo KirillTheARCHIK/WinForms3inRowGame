@@ -120,6 +120,9 @@
   <ItemGroup>
     <Compile Include="Entities\Items\DefaultItem.cs" />
     <Compile Include="Entities\Items\Item.cs" />
+    <Compile Include="Entities\Items\ItemPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

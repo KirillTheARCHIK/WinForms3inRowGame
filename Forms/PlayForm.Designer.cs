@@ -43,6 +43,7 @@ namespace _3inRowGame
             this.playFieldPanel.Name = "playFieldPanel";
             this.playFieldPanel.Size = new System.Drawing.Size(208, 100);
             this.playFieldPanel.TabIndex = 0;
+            this.playFieldPanel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DefaultItem_MouseUp);
             // 
             // leftPanel
             // 
