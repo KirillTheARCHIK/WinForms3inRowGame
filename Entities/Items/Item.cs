@@ -1,4 +1,5 @@
-﻿using _3inRowGame.Utils;
+﻿using _3inRowGame.Entities.Items;
+using _3inRowGame.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -12,10 +13,13 @@ namespace _3inRowGame.Entities
 {
     public abstract class Item
     {
-        public PictureBox pictureBox;
+        public ItemPictureBox pictureBox;
+        public int row;
+        public int col;
+        public Action<Item, Item> onSlideToNeighbourItem;
         public Item()
         {
-            pictureBox = new PictureBox();
+            pictureBox = new ItemPictureBox(this);
             pictureBox.Size = new Size(Constants.itemSize, Constants.itemSize);
             pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
         }

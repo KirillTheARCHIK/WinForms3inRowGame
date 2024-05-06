@@ -13,6 +13,13 @@ using System.Windows.Forms;
 
 namespace _3inRowGame
 {
+    enum Direction
+    {
+        Up,
+        Right,
+        Down,
+        Left
+    }
     public partial class PlayForm : Form
     {
         Random rand = new Random();
@@ -22,6 +29,9 @@ namespace _3inRowGame
         Size playFieldPanelSizePx;
         Size playFieldPanelSizeItems = new Size(10, 10);
         Item[][] itemMatrix;
+        //
+        DefaultItem itemFrom;
+        //
         public PlayForm(string mode)
         {
             InitializeComponent();
@@ -41,10 +51,27 @@ namespace _3inRowGame
                 itemMatrix[i] = new Item[playFieldPanelSizeItems.Height];
             }
 
-            GameTurn();
+            GameTurn(0);
         }
 
-        public void SyncItemsPosition()
+        void SyncItemsPosition()
+        {
+            for (int i = 0; i < itemMatrix.Length; i++)
+            {
+                for (int j = 0; j < itemMatrix[i].Length; j++)
+                {
+                    var item = itemMatrix[i][j];
+                    if (item != null)
+                    {
+                        item.col = i;
+                        item.row = j;
+                    }
+                }
+            }
+            SuncItemsImages();
+        }
+
+        void SuncItemsImages()
         {
             for (int i = 0; i < itemMatrix.Length; i++)
             {
@@ -54,18 +81,19 @@ namespace _3inRowGame
                     if (item != null)
                     {
                         item.pictureBox.Location = new Point(
-                            i * Constants.itemSize,
-                            (itemMatrix[i].Length - 1 - j) * Constants.itemSize
-                            );
+                            item.col * Constants.itemSize,
+                            (itemMatrix[i].Length - 1 - item.row) * Constants.itemSize
+                        );
                     }
                 }
             }
         }
 
-        public void GameTurn()
+        async void GameTurn(int delay = 300)
         {
             while (true)
             {
+                await Task.Delay(delay);
                 if (SpawnTopRow())
                 {
                     continue;
@@ -74,11 +102,16 @@ namespace _3inRowGame
                 {
                     continue;
                 }
+                if (CollapseItems())
+                {
+                    continue;
+                }
                 break;
             }
+            //MessageBox.Show("Stop");
         }
 
-        public bool FallDown()
+        bool FallDown()
         {
             if (itemMatrix.All((col) => col.All(item => item != null)))
             {
@@ -106,9 +139,9 @@ namespace _3inRowGame
             return true;
         }
 
-        public bool SpawnTopRow()
+        bool SpawnTopRow()
         {
-            if (itemMatrix.All(col=>col.Last()!=null))
+            if (itemMatrix.All(col => col.Last() != null))
             {
                 return false;
             }
@@ -116,6 +149,9 @@ namespace _3inRowGame
             {
                 var newItem = new DefaultItem((DefaultItemType)rand.Next(4));
                 newItem.Init();
+                newItem.pictureBox.MouseDown += DefaultItem_MouseDown;
+                newItem.pictureBox.MouseEnter += DefaultItem_MouseEnter;
+                newItem.pictureBox.MouseUp += DefaultItem_MouseUp;
                 SpawnItem(
                     new Point(x, itemMatrix[x].Length - 1),
                    newItem
@@ -125,13 +161,196 @@ namespace _3inRowGame
             return true;
         }
 
-        public void SpawnItem(Point point, Item item)
+        private void DefaultItem_MouseDown(object sender, MouseEventArgs e)
+        {
+            itemFrom = (sender as ItemPictureBox).parent as DefaultItem;
+            itemFrom.pictureBox.BorderStyle = BorderStyle.FixedSingle;
+        }
+
+        private async void DefaultItem_MouseEnter(object sender, EventArgs e)
+        {
+            var _itemFrom = itemFrom;
+            if (_itemFrom == null)
+            {
+                return;
+            }
+            var itemTarget = (sender as ItemPictureBox).parent;
+            if (itemTarget == _itemFrom)
+            {
+                return;
+            }
+            int rowDifference = Math.Abs(itemTarget.row - _itemFrom.row);
+            int colDifference = Math.Abs(itemTarget.col - _itemFrom.col);
+            if (rowDifference <= 1 && colDifference <= 1 && (rowDifference == 1) != (colDifference == 1))
+            {
+                ClearItemSelection();
+                SwapItems(_itemFrom, itemTarget);
+                if (CollapseItems())
+                {
+                    GameTurn();
+                }
+                else
+                {
+                    await Task.Delay(300);
+                    SwapItems(_itemFrom, itemTarget);
+                }
+            }
+        }
+
+        private void DefaultItem_MouseUp(object sender, MouseEventArgs e)
+        {
+            ClearItemSelection();
+        }
+
+        private void ClearItemSelection()
+        {
+            if (itemFrom != null)
+            {
+                itemFrom.pictureBox.BorderStyle = BorderStyle.None;
+                itemFrom = null;
+            }
+        }
+
+        void SpawnItem(Point point, Item item)
         {
             if (itemMatrix[point.X][point.Y] == null)
             {
                 itemMatrix[point.X][point.Y] = item;
                 playFieldPanel.Controls.Add(item.pictureBox);
             }
+        }
+
+        bool CollapseItems()
+        {
+            var findedItems = FindItemsRow();
+            if (findedItems != null)
+            {
+                foreach (var item in findedItems)
+                {
+                    DeleteItem(item);
+                }
+                return true;
+            }
+            return false;
+        }
+
+        void DeleteItem(Item item)
+        {
+            itemMatrix[item.col][item.row] = null;
+            playFieldPanel.Controls.Remove(item.pictureBox);
+        }
+
+        List<DefaultItem> FindItemsRow()
+        {
+            for (int startCol = 0; startCol < itemMatrix.Length; startCol++)
+            {
+                for (int startRow = 0; startRow < itemMatrix.Length; startRow++)
+                {
+                    var startItem = itemMatrix[startCol][startRow];
+                    if (startItem is DefaultItem)
+                    {
+                        var startItemType = (startItem as DefaultItem).type;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            var itemsRow = PickItemsRow(startItemType, startCol, startRow, (Direction)i);
+                            if (itemsRow != null)
+                            {
+                                return itemsRow;
+                            }
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
+        List<DefaultItem> PickItemsRow(DefaultItemType type, int startCol, int startRow, Direction direction)
+        {
+            var itemsRow = new List<DefaultItem>() { itemMatrix[startCol][startRow] as DefaultItem };
+            switch (direction)
+            {
+                case Direction.Up:
+                    {
+                        if (itemMatrix[startCol].Length - startRow <= 3)
+                        {
+                            return null;
+                        }
+                        for (int row = startRow + 1; row < itemMatrix[startCol].Length; row++)
+                        {
+                            var item = itemMatrix[startCol][row];
+                            if (item is DefaultItem && (item as DefaultItem).type == type)
+                            {
+                                itemsRow.Add(item as DefaultItem);
+                                continue;
+                            }
+                            break;
+                        }
+                        break;
+                    }
+                case Direction.Right:
+                    {
+                        if (itemMatrix.Length - startCol <= 3)
+                        {
+                            return null;
+                        }
+                        for (int col = startCol + 1; col < itemMatrix.Length; col++)
+                        {
+                            var item = itemMatrix[col][startRow];
+                            if (item is DefaultItem && (item as DefaultItem).type == type)
+                            {
+                                itemsRow.Add(item as DefaultItem);
+                                continue;
+                            }
+                            break;
+                        }
+                        break;
+                    }
+                case Direction.Down:
+                    {
+                        if (startRow + 1 < 3)
+                        {
+                            return null;
+                        }
+                        for (int row = startRow - 1; row >= 0; row--)
+                        {
+                            var item = itemMatrix[startCol][row];
+                            if (item is DefaultItem && (item as DefaultItem).type == type)
+                            {
+                                itemsRow.Add(item as DefaultItem);
+                                continue;
+                            }
+                            break;
+                        }
+                        break;
+                    }
+                case Direction.Left:
+                    {
+                        if (startCol + 1 < 3)
+                        {
+                            return null;
+                        }
+                        for (int col = startCol - 1; col >= 0; col--)
+                        {
+                            var item = itemMatrix[col][startRow];
+                            if (item is DefaultItem && (item as DefaultItem).type == type)
+                            {
+                                itemsRow.Add(item as DefaultItem);
+                                continue;
+                            }
+                            break;
+                        }
+                        break;
+                    }
+            }
+            return itemsRow.Count >= 3 ? itemsRow : null;
+        }
+
+        void SwapItems(Item a, Item b)
+        {
+            var temp = a;
+            itemMatrix[a.col][a.row] = b;
+            itemMatrix[b.col][b.row] = temp;
+            SyncItemsPosition();
         }
     }
 }
