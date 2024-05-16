@@ -1,25 +1,20 @@
-﻿using _3inRowGame.Pages;
-using _3inRowGame.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace _3inRowGame
+namespace _3inRowGame.Forms
 {
-    public partial class MainForm : Form
+    public partial class MainPage : UserControl
     {
-        public MainForm()
+        public MainPage()
         {
             InitializeComponent();
-            Navigator.Init(navigatorPanel);
-            Navigator.SetPage(new GamePage());
         }
     }
 }

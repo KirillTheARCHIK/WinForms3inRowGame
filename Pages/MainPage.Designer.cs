@@ -1,14 +1,14 @@
 ﻿
-namespace _3inRowGame
+namespace _3inRowGame.Forms
 {
-    partial class MainForm
+    partial class MainPage
     {
-        /// <summary>
+        /// <summary> 
         /// Обязательная переменная конструктора.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Освободить все используемые ресурсы.
         /// </summary>
         /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
@@ -21,44 +21,26 @@ namespace _3inRowGame
             base.Dispose(disposing);
         }
 
-        #region Код, автоматически созданный конструктором форм Windows
+        #region Код, автоматически созданный конструктором компонентов
 
-        /// <summary>
+        /// <summary> 
         /// Требуемый метод для поддержки конструктора — не изменяйте 
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
         private void InitializeComponent()
         {
-            this.navigatorPanel = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // navigatorPanel
-            // 
-            this.navigatorPanel.AutoSize = true;
-            this.navigatorPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.navigatorPanel.Location = new System.Drawing.Point(0, 0);
-            this.navigatorPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.navigatorPanel.Name = "navigatorPanel";
-            this.navigatorPanel.Size = new System.Drawing.Size(784, 461);
-            this.navigatorPanel.TabIndex = 0;
-            // 
-            // MainForm
+            // MainPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(784, 461);
-            this.Controls.Add(this.navigatorPanel);
-            this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Name = "MainPage";
+            this.Size = new System.Drawing.Size(500, 500);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel navigatorPanel;
     }
 }
-

@@ -1,7 +1,4 @@
-﻿using _3inRowGame.Entities;
-using _3inRowGame.Entities.Items;
-using _3inRowGame.Utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,8 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using _3inRowGame.Entities;
+using _3inRowGame.Entities.Items;
+using _3inRowGame.Utils;
 
-namespace _3inRowGame
+namespace _3inRowGame.Pages
 {
     enum Direction
     {
@@ -20,11 +20,11 @@ namespace _3inRowGame
         Down,
         Left
     }
-    public partial class PlayForm : Form
+    public partial class GamePage : UserControl
     {
         Random rand = new Random();
 
-        string mode;
+        //string mode;
         int leftPanelWidth;
         Size playFieldPanelSizePx;
         Size playFieldPanelSizeItems = new Size(10, 10);
@@ -32,11 +32,11 @@ namespace _3inRowGame
         //
         DefaultItem itemFrom;
         //
-        public PlayForm(string mode)
+        public GamePage()
         {
             InitializeComponent();
-            this.mode = mode;
-            Text = "Режим " + mode;
+            //this.mode = mode;
+            //Text = "Режим " + mode;
             leftPanelWidth = leftPanel.Width;
             playFieldPanelSizePx = new Size(
                 playFieldPanelSizeItems.Width * Constants.itemSize,
