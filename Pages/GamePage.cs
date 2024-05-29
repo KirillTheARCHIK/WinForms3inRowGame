@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using _3inRowGame.Entities;
 using _3inRowGame.Entities.Items;
+using _3inRowGame.Forms;
 using _3inRowGame.Utils;
 
 namespace _3inRowGame.Pages
@@ -29,6 +30,16 @@ namespace _3inRowGame.Pages
         Size playFieldPanelSizePx;
         Size playFieldPanelSizeItems = new Size(10, 10);
         Item[][] itemMatrix;
+        private int score = 0;
+        int Score
+        {
+            get { return score; }
+            set
+            {
+                score = value;
+                labelScore.Text = "Счёт: " + score.ToString();
+            }
+        }
         //
         DefaultItem itemFrom;
         //
@@ -38,6 +49,13 @@ namespace _3inRowGame.Pages
             //this.mode = mode;
             //Text = "Режим " + mode;
             leftPanelWidth = leftPanel.Width;
+
+            StartNewGame();
+        }
+
+        async void StartNewGame()
+        {
+            playFieldPanel.Controls.Clear();
             playFieldPanelSizePx = new Size(
                 playFieldPanelSizeItems.Width * Constants.itemSize,
                 playFieldPanelSizeItems.Height * Constants.itemSize
@@ -51,7 +69,8 @@ namespace _3inRowGame.Pages
                 itemMatrix[i] = new Item[playFieldPanelSizeItems.Height];
             }
 
-            GameTurn(0);
+            await GameTurn(0);
+            Score = 0;
         }
 
         void SyncItemsPosition()
@@ -68,10 +87,10 @@ namespace _3inRowGame.Pages
                     }
                 }
             }
-            SuncItemsImages();
+            SyncItemsImages();
         }
 
-        void SuncItemsImages()
+        void SyncItemsImages()
         {
             for (int i = 0; i < itemMatrix.Length; i++)
             {
@@ -89,7 +108,7 @@ namespace _3inRowGame.Pages
             }
         }
 
-        async void GameTurn(int delay = 300)
+        async Task GameTurn(int delay = 300)
         {
             while (true)
             {
@@ -225,6 +244,7 @@ namespace _3inRowGame.Pages
             var findedItems = FindItemsRow();
             if (findedItems != null)
             {
+                Score += (int)Math.Pow(2,findedItems.Count - 3);
                 foreach (var item in findedItems)
                 {
                     DeleteItem(item);
@@ -351,6 +371,21 @@ namespace _3inRowGame.Pages
             itemMatrix[a.col][a.row] = b;
             itemMatrix[b.col][b.row] = temp;
             SyncItemsPosition();
+        }
+
+        private void buttonRestart_Click(object sender, EventArgs e)
+        {
+            StartNewGame();
+        }
+
+        private void buttonExit_Click(object sender, EventArgs e)
+        {
+            Navigator.SetPage(new MainPage());
+        }
+
+        private void buttonSettings_Click(object sender, EventArgs e)
+        {
+            new SettingsForm().ShowDialog();
         }
     }
 }

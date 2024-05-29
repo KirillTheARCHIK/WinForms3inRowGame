@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,7 @@ namespace _3inRowGame.Utils
             current = control;
             navPanel.Controls.Clear();
             navPanel.Controls.Add(current);
+            current.Size = new Size(navPanel.Width, navPanel.Height);
         }
     }
 }

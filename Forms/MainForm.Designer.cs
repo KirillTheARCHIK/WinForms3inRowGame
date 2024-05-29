@@ -35,6 +35,7 @@ namespace _3inRowGame
             // navigatorPanel
             // 
             this.navigatorPanel.AutoSize = true;
+            this.navigatorPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.navigatorPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.navigatorPanel.Location = new System.Drawing.Point(0, 0);
             this.navigatorPanel.Margin = new System.Windows.Forms.Padding(0);
@@ -46,11 +47,11 @@ namespace _3inRowGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.navigatorPanel);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "Три в ряд";
+            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 

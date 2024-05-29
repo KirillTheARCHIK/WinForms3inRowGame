@@ -10,6 +10,7 @@ namespace _3inRowGame
 {
     static class Program
     {
+        public static ILogger logger;
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>

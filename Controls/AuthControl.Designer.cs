@@ -1,7 +1,7 @@
 ﻿
-namespace _3inRowGame.Pages
+namespace _3inRowGame.Controls
 {
-    partial class AuthPage
+    partial class AuthControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -32,8 +32,8 @@ namespace _3inRowGame.Pages
             this.labelTitle = new System.Windows.Forms.Label();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.textBoxLogin = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.buttonSubmit = new System.Windows.Forms.Button();
             this.flowLayoutPanel1.SuspendLayout();
@@ -52,7 +52,8 @@ namespace _3inRowGame.Pages
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanel1.AutoSize = true;
+            this.flowLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.flowLayoutPanel1.Controls.Add(this.labelTitle);
             this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Controls.Add(this.textBoxLogin);
@@ -60,9 +61,9 @@ namespace _3inRowGame.Pages
             this.flowLayoutPanel1.Controls.Add(this.textBoxPassword);
             this.flowLayoutPanel1.Controls.Add(this.buttonSubmit);
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(57, 41);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(256, 213);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(256, 177);
             this.flowLayoutPanel1.TabIndex = 1;
             this.flowLayoutPanel1.WrapContents = false;
             // 
@@ -77,6 +78,15 @@ namespace _3inRowGame.Pages
             this.label1.TabIndex = 1;
             this.label1.Text = "Логин";
             // 
+            // textBoxLogin
+            // 
+            this.textBoxLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxLogin.Location = new System.Drawing.Point(0, 49);
+            this.textBoxLogin.Margin = new System.Windows.Forms.Padding(0);
+            this.textBoxLogin.Name = "textBoxLogin";
+            this.textBoxLogin.Size = new System.Drawing.Size(255, 26);
+            this.textBoxLogin.TabIndex = 3;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -87,15 +97,6 @@ namespace _3inRowGame.Pages
             this.label2.Size = new System.Drawing.Size(67, 20);
             this.label2.TabIndex = 2;
             this.label2.Text = "Пароль";
-            // 
-            // textBoxLogin
-            // 
-            this.textBoxLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBoxLogin.Location = new System.Drawing.Point(0, 49);
-            this.textBoxLogin.Margin = new System.Windows.Forms.Padding(0);
-            this.textBoxLogin.Name = "textBoxLogin";
-            this.textBoxLogin.Size = new System.Drawing.Size(255, 26);
-            this.textBoxLogin.TabIndex = 3;
             // 
             // textBoxPassword
             // 
@@ -116,17 +117,21 @@ namespace _3inRowGame.Pages
             this.buttonSubmit.TabIndex = 5;
             this.buttonSubmit.Text = "Войти";
             this.buttonSubmit.UseVisualStyleBackColor = true;
+            this.buttonSubmit.Click += new System.EventHandler(this.buttonSubmit_Click);
             // 
-            // AuthPage
+            // AuthControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Name = "AuthPage";
-            this.Size = new System.Drawing.Size(382, 315);
+            this.Name = "AuthControl";
+            this.Size = new System.Drawing.Size(262, 183);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
